@@ -1,7 +1,7 @@
 {application,microblog,
              [{applications,[kernel,stdlib,elixir,logger,runtime_tools,
                              gettext,phoenix_pubsub,cowboy,phoenix_html,
-                             phoenix,phoenix_live_reload,postgrex,
+                             phoenix,phoenix_live_reload,postgrex,distillery,
                              phoenix_ecto]},
               {description,"microblog"},
               {modules,['Elixir.Microblog','Elixir.Microblog.Application',
