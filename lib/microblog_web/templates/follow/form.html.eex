@@ -6,14 +6,6 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :message, class: "control-label" %>
-    <%= text_input f, :message, class: "form-control" %>
-    <%= error_tag f, :message %>
-  </div>
-
-  <%= hidden_input f, :user_id, value: @user.id %>
-
-  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

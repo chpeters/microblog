@@ -5,7 +5,8 @@ defmodule MicroblogWeb.MessageController do
   alias Microblog.Social.Message
 
   def index(conn, _params) do
-    messages = Social.list_messages()
+    # messages = Social.list_messages()
+    messages = Social.list_messages_by_user_id(get_session(conn, :user_id))
     render(conn, "index.html", messages: messages)
   end
 
