@@ -18,7 +18,7 @@
       <td><%= username_from_user_id(follow.followee_id) %></td>
 
       <td class="text-right">
-        <span><%= link "Delete", to: follow_path(@conn, :delete, follow), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Unfollow", to: follow_path(@conn, :delete, follow), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>
