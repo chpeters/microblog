@@ -26,6 +26,11 @@ defmodule Microblog.Social do
     Repo.all(query)
   end
 
+  def list_messages_by_user_ids(ids) do
+    query = from m in Message, where: m.user_id in ^ids, preload: [:user]
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single message.
 

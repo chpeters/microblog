@@ -12,12 +12,12 @@ defmodule MicroblogWeb.SessionController do
   		conn
   		|> put_session(:user_id, user.id)
   		|> put_flash(:info, "Logged in as #{user.username}")
-  		|> redirect(to: user_path(conn, :show, user.id))
+  		|> redirect(to: page_path(conn, :index))
   	else
   		conn
   		|> put_session(:user_id, nil)
       |> put_flash(:error, "Username doesn't exist")
-      |> redirect(to: user_path(conn, :index))
+      |> redirect(to: page_path(conn, :index))
   	end
   end
 
@@ -25,7 +25,7 @@ defmodule MicroblogWeb.SessionController do
   	conn
     |> put_session(:user_id, nil)
     |> put_flash(:info, "Logged out")
-    |> redirect(to: "/")
+    |> redirect(to: page_path(conn, :index))
   end
 
 end

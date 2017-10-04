@@ -24,7 +24,7 @@ defmodule MicroblogWeb.FollowController do
       {:ok, follow} ->
         conn
         |> put_flash(:info, "Follow created successfully.")
-        |> redirect(to: follow_path(conn, :show, follow))
+        |> redirect(to: follow_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
