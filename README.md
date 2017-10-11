@@ -3,6 +3,6 @@
 https://github.com/chpeters/microblog
 microblog homepage: http://microblog.cs4550.fun
 
-I added a user and follows resource to the app. Users can create a new account from the home page. Users can login, and if they do, they see all their and their following tweets on the homepage. They can also logout. On the follows page, users can see a list of users they follow, and those that they don't follow yet. They can follow and unfollow users on that page.
+I added the ability to like messages. Liking messages is similar to Insta where the heart becomes filled on a message when you have liked something (and you can only like it once), or it is empty when you haven't liked something. I added the ability to unlike a post by clicking on the heart again, and each time you click on the heart, the page should show the correct heart immediately after.
 
-I also added some basic features to the posts resource. Users can now only see and edit their own posts. The messages index pages still now only show the logged in user's posts. Logged out users aren't presented the messages or follows pages.
+The deploy script works on the remote server by building and creating a release. You still have to manually copy the output command of the script and add either start or foreground to the end to run the server, but it drastically reduces the amount of time to run the app. Next week, I'll add the finishing touches so you don't have to type start or foreground after, but instead takes it as an argument to the command.
