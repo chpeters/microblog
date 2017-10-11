@@ -212,4 +212,115 @@ defmodule Microblog.Social do
   def change_follow(%Follow{} = follow) do
     Follow.changeset(follow, %{})
   end
+
+  alias Microblog.Social.Likes
+
+  @doc """
+  Returns the list of likes.
+
+  ## Examples
+
+      iex> list_likes()
+      [%Likes{}, ...]
+
+  """
+  def list_likes do
+    Repo.all(Likes)
+  end
+
+  @doc """
+  Gets a single likes.
+
+  Raises `Ecto.NoResultsError` if the Likes does not exist.
+
+  ## Examples
+
+      iex> get_likes!(123)
+      %Likes{}
+
+      iex> get_likes!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_likes!(id), do: Repo.get!(Likes, id)
+
+  def get_number_likes_by_message_id(id) do
+    query = from l in Likes, where: l.message_id == ^id, select: count(l.id)
+    Repo.one(query)
+  end
+
+  def get_likes_by_message_id(id) do
+    query = from l in Likes, where: l.message_id == ^id
+    result = Repo.one(query)
+    if result do
+      Repo.preload(result, :message)
+    else
+      nil
+    end
+  end
+
+  @doc """
+  Creates a likes.
+
+  ## Examples
+
+      iex> create_likes(%{field: value})
+      {:ok, %Likes{}}
+
+      iex> create_likes(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_likes(attrs \\ %{}) do
+    %Likes{}
+    |> Likes.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a likes.
+
+  ## Examples
+
+      iex> update_likes(likes, %{field: new_value})
+      {:ok, %Likes{}}
+
+      iex> update_likes(likes, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_likes(%Likes{} = likes, attrs) do
+    likes
+    |> Likes.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Likes.
+
+  ## Examples
+
+      iex> delete_likes(likes)
+      {:ok, %Likes{}}
+
+      iex> delete_likes(likes)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_likes(%Likes{} = likes) do
+    Repo.delete(likes)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking likes changes.
+
+  ## Examples
+
+      iex> change_likes(likes)
+      %Ecto.Changeset{source: %Likes{}}
+
+  """
+  def change_likes(%Likes{} = likes) do
+    Likes.changeset(likes, %{})
+  end
 end

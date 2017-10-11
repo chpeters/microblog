@@ -184,4 +184,62 @@ defmodule Microblog.SocialTest do
       assert %Ecto.Changeset{} = Social.change_follow(follow)
     end
   end
+
+  describe "likes" do
+    alias Microblog.Social.Likes
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def likes_fixture(attrs \\ %{}) do
+      {:ok, likes} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Social.create_likes()
+
+      likes
+    end
+
+    test "list_likes/0 returns all likes" do
+      likes = likes_fixture()
+      assert Social.list_likes() == [likes]
+    end
+
+    test "get_likes!/1 returns the likes with given id" do
+      likes = likes_fixture()
+      assert Social.get_likes!(likes.id) == likes
+    end
+
+    test "create_likes/1 with valid data creates a likes" do
+      assert {:ok, %Likes{} = likes} = Social.create_likes(@valid_attrs)
+    end
+
+    test "create_likes/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Social.create_likes(@invalid_attrs)
+    end
+
+    test "update_likes/2 with valid data updates the likes" do
+      likes = likes_fixture()
+      assert {:ok, likes} = Social.update_likes(likes, @update_attrs)
+      assert %Likes{} = likes
+    end
+
+    test "update_likes/2 with invalid data returns error changeset" do
+      likes = likes_fixture()
+      assert {:error, %Ecto.Changeset{}} = Social.update_likes(likes, @invalid_attrs)
+      assert likes == Social.get_likes!(likes.id)
+    end
+
+    test "delete_likes/1 deletes the likes" do
+      likes = likes_fixture()
+      assert {:ok, %Likes{}} = Social.delete_likes(likes)
+      assert_raise Ecto.NoResultsError, fn -> Social.get_likes!(likes.id) end
+    end
+
+    test "change_likes/1 returns a likes changeset" do
+      likes = likes_fixture()
+      assert %Ecto.Changeset{} = Social.change_likes(likes)
+    end
+  end
 end

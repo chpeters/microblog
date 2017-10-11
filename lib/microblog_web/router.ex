@@ -9,7 +9,12 @@ defmodule MicroblogWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_user
+  end
 
+   pipeline :api do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_user
   end
 
   pipeline :api do
@@ -22,6 +27,7 @@ defmodule MicroblogWeb.Router do
     resources "/messages", MessageController
     resources "/users", UserController
     resources "/follows", FollowController
+    resources "/likes", LikesController, except: [:new, :edit]
 
     post "/sessions", SessionController, :login
     delete "/sessions", SessionController, :logout

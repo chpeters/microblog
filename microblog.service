@@ -1,0 +1,20 @@
+[Unit]
+Description=microblog
+After=network.target
+
+[Service]
+Type=forking
+User=appuser
+Group=appuser
+WorkingDirectory=/var/www/microblog
+ExecStart=/var/www/microblog/_build/prod/rel/microblog/bin/microblog start
+ExecStop=/var/www/microblog/_build/prod/rel/microblog/bin/microblog start
+Restart=on-failure
+RestartSec=5
+Environment=PORT=8080
+Environment=LANG=en_US.UTF-8
+SyslogIdentifier=microblog
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
