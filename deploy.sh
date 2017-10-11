@@ -18,7 +18,4 @@ mix deps.get
 (cd assets && brunch build)
 mix phx.digest
 mix release --env=prod
-
-$DIR/bin/nu_mart stop || true
-
 mix ecto.migrate
