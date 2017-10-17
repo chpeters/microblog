@@ -132,6 +132,11 @@ defmodule Microblog.Social do
     Repo.all(query)
   end
 
+  def list_follows_by_followee_id(id) do 
+    query = from f in Follow, where: f.followee_id == ^id
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single follow.
 

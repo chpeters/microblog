@@ -6,6 +6,7 @@
     <%= link "New Account", to: user_path(@conn, :new), class: "btn btn-primary mt-4 mb-4" %>
   </div>
 
+  <div id="messages">
   <%= if @messages do %>
   <%= for message <- @messages do %>
 
@@ -14,13 +15,17 @@
         <h4 class="card-title"><%= message.user.username %></h4>
         <p class="card-text"><%= message.message %></p>
         <div class="likes" data-message_id="<%= message.id %>" data-user_id="<%= @user.id %>"></div>
-        <tr>
-        </tr>
       </div>
     </div>
 
-    <script>var CSRF_TOKEN = <%= raw Poison.encode!(Plug.CSRFProtection.get_csrf_token()) %>;</script>
+    <script> 
+      var CSRF_TOKEN = <%= raw Poison.encode!(Plug.CSRFProtection.get_csrf_token()) %>;
+      window.cfg = {
+        user_id: "<%= @user.id %>"
+      }
+    </script>
 <% end %>
 <% end %>
+</div>
 
 </div>

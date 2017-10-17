@@ -2,6 +2,7 @@ defmodule MicroblogWeb.MessageController do
   use MicroblogWeb, :controller
 
   alias Microblog.Social
+  alias Microblog.Accounts
   alias Microblog.Social.Message
 
   def index(conn, _params) do
@@ -18,6 +19,15 @@ defmodule MicroblogWeb.MessageController do
   def create(conn, %{"message" => message_params}) do
     case Social.create_message(message_params) do
       {:ok, message} ->
+        user = Accounts.get_user!(get_session(conn, :user_id))
+        followers = Microblog.Social.list_follows_by_followee_id(user.id)
+        IO.inspect(followers)
+        Enum.each(followers, fn(f) -> IO.puts("trying")
+        MicroblogWeb.Endpoint.broadcast("updates:"<> Integer.to_string(f.follower_id), "update",
+                                                                       %{"message" => message.message,
+                                                                       "username" => user.username,
+                                                                       "message_id" => message.id,
+                                                                       "user_id" => user.id}) end)
         conn
         |> put_flash(:info, "Message created successfully.")
         |> redirect(to: message_path(conn, :show, message))

@@ -6,3 +6,9 @@
 
 <span><%= link "Back", to: message_path(@conn, :index) %></span>
 </div>
+
+<script> 
+      window.cfg = {
+        user_id: "<%= @user.id %>"
+      }
+</script>
