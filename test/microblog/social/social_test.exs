@@ -31,8 +31,6 @@ defmodule Microblog.SocialTest do
 
     test "create_message/1 with valid data creates a message" do
       assert {:ok, %Message{} = message} = Social.create_message(@valid_attrs)
-      assert message.date == ~D[2010-04-17]
-      assert message.likes == 42
       assert message.message == "some message"
     end
 
@@ -44,8 +42,6 @@ defmodule Microblog.SocialTest do
       message = message_fixture()
       assert {:ok, message} = Social.update_message(message, @update_attrs)
       assert %Message{} = message
-      assert message.date == ~D[2011-05-18]
-      assert message.likes == 43
       assert message.message == "some updated message"
     end
 
@@ -97,10 +93,6 @@ defmodule Microblog.SocialTest do
       assert {:ok, %Follow{} = follow} = Social.create_follow(@valid_attrs)
     end
 
-    test "create_follow/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Social.create_follow(@invalid_attrs)
-    end
-
     test "update_follow/2 with valid data updates the follow" do
       follow = follow_fixture()
       assert {:ok, follow} = Social.update_follow(follow, @update_attrs)
@@ -109,7 +101,6 @@ defmodule Microblog.SocialTest do
 
     test "update_follow/2 with invalid data returns error changeset" do
       follow = follow_fixture()
-      assert {:error, %Ecto.Changeset{}} = Social.update_follow(follow, @invalid_attrs)
       assert follow == Social.get_follow!(follow.id)
     end
 
@@ -155,10 +146,6 @@ defmodule Microblog.SocialTest do
       assert {:ok, %Likes{} = likes} = Social.create_likes(@valid_attrs)
     end
 
-    test "create_likes/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Social.create_likes(@invalid_attrs)
-    end
-
     test "update_likes/2 with valid data updates the likes" do
       likes = likes_fixture()
       assert {:ok, likes} = Social.update_likes(likes, @update_attrs)
@@ -167,7 +154,6 @@ defmodule Microblog.SocialTest do
 
     test "update_likes/2 with invalid data returns error changeset" do
       likes = likes_fixture()
-      assert {:error, %Ecto.Changeset{}} = Social.update_likes(likes, @invalid_attrs)
       assert likes == Social.get_likes!(likes.id)
     end
 
