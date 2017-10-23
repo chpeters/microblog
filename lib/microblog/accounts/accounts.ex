@@ -41,6 +41,14 @@ defmodule Microblog.Accounts do
     Repo.get_by(User, username: username)
   end
 
+  def get_and_auth_user(username, password) do
+    user = get_user_by_username(username)
+    case Comeonin.Argon2.check_pass(user, password) do
+      {:ok, user} -> user
+      _else       -> nil
+    end
+  end
+
   @doc """
   Creates a user.
 

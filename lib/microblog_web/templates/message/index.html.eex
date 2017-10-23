@@ -8,7 +8,7 @@
     <div class="card mt-4">
       <div class="card-body">
         <h4 class="card-title"><%= @user.username %></h4>
-        <p class="card-text"><%= message.message %></p>
+        <p class="card-text"><%= markdown(message.message) %></p>
         <tr>
           <td class="text-right">
           <span><%= link "Edit", to: message_path(@conn, :edit, message), class: "btn btn-default btn-xs" %></span>

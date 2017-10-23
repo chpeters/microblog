@@ -8,12 +8,13 @@
 
   <div id="messages">
   <%= if @messages do %>
-  <%= for message <- @messages do %>
+  <span><%= link "New Tweet", to: message_path(@conn, :new), class: "btn btn-primary mt-4" %></span>
+  <%= for message <- Enum.reverse(@messages) do %>
 
     <div class="card mt-4">
       <div class="card-body">
         <h4 class="card-title"><%= message.user.username %></h4>
-        <p class="card-text"><%= message.message %></p>
+        <p class="card-text"><%= markdown(message.message) %></p>
         <div class="likes" data-message_id="<%= message.id %>" data-user_id="<%= @user.id %>"></div>
       </div>
     </div>

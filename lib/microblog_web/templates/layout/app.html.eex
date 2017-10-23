@@ -40,6 +40,7 @@
           <% else %>
             <%= form_for @conn, session_path(@conn, :login), [as: "user", class: "form-inline"], fn f -> %>
               <input type="text" placeholder="username" class="form-control" name="username">
+              <input type="password" placeholder="password" class="form-control" name="password">
               <%= submit "Log in", class: "btn btn-primary" %>
             <% end %>
           <% end %>
